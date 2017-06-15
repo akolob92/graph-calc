@@ -2,7 +2,7 @@
          /*
           Проверить наличие всех данных и разблокироваь кнопки
          */
-        function checkReadiness(config) {
+        function checkReadiness(config = {}) {
           if (!config.alpha || !config.beta || !config.timeRestriction) {
             return blockAllButtons();
           }
@@ -15,7 +15,7 @@
          */
         function blockAllButtons() {
           let buttons = document.querySelectorAll('button.disebable');
-          for (let i = 0; i < i.length; i++) {
+          for (let i = 0; i < buttons.length; i++) {
             buttons[i].addClass('disable')
           }
         }
@@ -25,7 +25,7 @@
          */
         function enableAllButtons() {
           let buttons = document.querySelectorAll('button.disebable');
-          for (let i = 0; i < i.length; i++) {
+          for (let i = 0; i < buttons.length; i++) {
             buttons[i].removeClass('enable')
           }
         }
@@ -73,4 +73,49 @@
           }
 
           return { includedIds, excludedIds };
+        }
+
+         /*
+          Запустить алгоритм поиска оптимальной модели курса
+          */
+        function runCalculation() {
+          // TODO: Возможно проверить на ошибки и вызвать setError(err)?
+
+          console.time('Calculation')
+
+          try {
+            // TODO: run algorithm
+            // TODO: solve for each set
+          } catch (e) {
+            setError(e)
+          }
+
+          let value = 100;
+
+          console.timeEnd('Calculation')
+
+          setResultedValue(100);
+        }
+
+         /*
+          Вывести информаци об ошибке клиенту
+          */
+         function setError(errors = []) {
+           if (!Array.isArray(errors)) errors = [errors];
+
+           let notificationDiv = (document.querySelector('input#beta') || {});
+           let message = '';
+
+           for (let i = 0; i < errors.length; i++) {
+             message += error[i].message + '   \n';
+           }
+
+           notificationDiv.innerHTML = message;
+         }
+
+         /*
+          Установить результирующее значение в форме
+          */
+        function setResultedValue(value = 0) {
+          return (document.querySelector('input#beta') || {}).value = value;
         }
